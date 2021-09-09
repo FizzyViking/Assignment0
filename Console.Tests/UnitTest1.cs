@@ -1,9 +1,10 @@
 using System;
+using System.IO;
 using Xunit;
 
 namespace Console.Tests
 {
-    public class UnitTest1
+    public class Console_UnitTest
     {
         [Fact]
         public void IsLeapYear()
@@ -18,10 +19,24 @@ namespace Console.Tests
             bool result4 = program.IsLeapYear(1700);
 
             // Assert
+            // Minor error - Should use Assert.True();
             Assert.Equal(true, result1);
             Assert.Equal(false, result2);
             Assert.Equal(true, result3);
             Assert.Equal(false, result4);
+        }
+
+        [Fact]
+        public void Console_Gets_UserInput() {
+            var writer = new StringWriter();
+            System.Console.SetOut(writer);
+            var input = new StringReader("1600");
+            System.Console.SetIn(input);
+
+            Program.Main(new string[0]);
+
+            string actual = writer.ToString().Trim();
+            Assert.EndsWith("yay", actual);
         }
     }
 }
