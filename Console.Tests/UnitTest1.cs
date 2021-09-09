@@ -38,5 +38,18 @@ namespace Console.Tests
             string actual = writer.ToString().Trim();
             Assert.EndsWith("yay", actual);
         }
+
+        [Fact]
+        public void Main_Throws_Error() {
+            var writer = new StringWriter();
+            System.Console.SetOut(writer);
+            var input = new StringReader("Try me");
+            System.Console.SetIn(input);
+
+            Program.Main(new string[0]);
+
+            var actual = writer.ToString().Trim();
+            Assert.EndsWith("Please enter a number from 1582 and up", actual);
+        }
     }
 }

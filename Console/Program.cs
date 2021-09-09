@@ -11,12 +11,28 @@ namespace Console
         }
 
         public void UserInput() {
+            int input = 0;
+            bool error = false;
             System.Console.WriteLine("Enter a year: ");
-            int input = int.Parse(System.Console.ReadLine());
 
-            if (IsLeapYear(input)) {
-                System.Console.WriteLine("yay");
-            } else System.Console.WriteLine("nay");
+            try
+            {
+                input = int.Parse(System.Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e.Message + "\nPlease enter a number from 1582 and up");
+                error = true;
+            }
+
+            if (!error) {
+                if (input >= 1582) {
+                    if (IsLeapYear(input)) {
+                        System.Console.WriteLine("yay");
+                    } else System.Console.WriteLine("nay");
+                } 
+                else System.Console.WriteLine("Please enter a number from 1582 and up");
+            }
         }
 
         public bool IsLeapYear(int year) {
